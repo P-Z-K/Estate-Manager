@@ -20,6 +20,9 @@ namespace EstateManager.Data
             if (!File.Exists(_fileName))
                 File.Create(_fileName).Dispose();
 
+            // Only for testing purposes
+            _estates = new List<Estate>();
+
 
         }
 

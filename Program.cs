@@ -1,4 +1,5 @@
-﻿using EstateManager.Estates;
+﻿using EstateManager.Data;
+using EstateManager.Estates;
 using EstateManager.Utils;
 using System;
 
@@ -10,8 +11,12 @@ namespace EstateManager
 {
     class Program
     {
+        private static IDatabase _database;
+        private const string _databaseFileName = "estates.txt";
+
         static void Main()
         {
+            _database = new TextDatabase(_databaseFileName);
             //EstatePrinter.PrintEstate(new Office(1, "Słoneczna 4", 100, 150, 450000, OwnerType.City, 15, 150, DateTime.Now));
             bool isRunning = true;
             do
@@ -67,6 +72,13 @@ namespace EstateManager
 
         private static void AddEstate()
         {
+            EstateManager estateManager = new EstateManager(_database);
+
+            estateManager.Add(new Office("Słoneczna 4", 100, 150, 450000, OwnerType.City, 15, 150, DateTime.Now));
+            estateManager.Add(new Office("Słoneczna 4", 100, 150, 450000, OwnerType.City, 15, 150, DateTime.Now));
+            estateManager.Add(new Office("Słoneczna 4", 100, 150, 450000, OwnerType.City, 15, 150, DateTime.Now));
+            estateManager.Add(new Office("Słoneczna 4", 100, 150, 450000, OwnerType.City, 15, 150, DateTime.Now));
+            estateManager.Add(new Office("Słoneczna 4", 100, 150, 450000, OwnerType.City, 15, 150, DateTime.Now));
 
         }
 
@@ -82,7 +94,7 @@ namespace EstateManager
 
         private static void ShowAllEstates()
         {
-
+            EstatePrinter.PrintEstates(_database.GetEstates());
         }
     }
 }

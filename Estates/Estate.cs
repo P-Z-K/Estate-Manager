@@ -60,14 +60,14 @@ namespace EstateManager.Estates
             Owner = owner;
         }
 
-        public Estate(string adress, double width, double length, double price, OwnerType owner)
+        public Estate(string adress, double width, double length, double price, OwnerType owner, DateTime addedDate)
         {
             ID = 0;
             Adress = adress;
             Width = width;
             Length = length;
             Price = price;
-            AddedDate = DateTime.Now;
+            AddedDate = addedDate;
             ControlDate = AddedDate.AddYears(controlFrequency);
             Owner = owner;
         }

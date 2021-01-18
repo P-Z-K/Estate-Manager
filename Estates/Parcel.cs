@@ -14,8 +14,8 @@ namespace EstateManager.Estates
             ParcelType = parcelType;
         }
 
-        public Parcel(string adress, double width, double length, double price, OwnerType owner, ParcelType parcelType)
-            : base(adress, width, length, price, owner)
+        public Parcel(string adress, double width, double length, double price, OwnerType owner, ParcelType parcelType, DateTime addedDate)
+            : base(adress, width, length, price, owner, addedDate)
         {
             ParcelType = parcelType;
         }

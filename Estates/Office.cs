@@ -16,8 +16,8 @@ namespace EstateManager.Estates
             MaxPeople = maxPeople;
         }
 
-        public Office(string adress, double width, double length, double price, OwnerType owner, int floors, int maxPeople)
-            : base(adress, width, length, price, owner)
+        public Office(string adress, double width, double length, double price, OwnerType owner, int floors, int maxPeople, DateTime addedDate)
+            : base(adress, width, length, price, owner, addedDate)
         {
             Floors = floors;
             MaxPeople = maxPeople;
