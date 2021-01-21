@@ -3,7 +3,6 @@ using EstateManager.Estates;
 using EstateManager.Utils;
 using System;
 
-// TODO: Need kind of manager class to manage estates' ids
 // TODO: Need to implement functionality to functions in Program class
 // TODO: May we should add some sort of validator class that ensures custom validate
 
