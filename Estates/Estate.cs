@@ -7,7 +7,7 @@ namespace EstateManager.Estates
     abstract class Estate
     {
         public int ID { get; private set; }
-        public string Adress { get; private set; }
+        public string Address { get; private set; }
         public double Width { get; private set; }
         public double Length { get; private set; }
         public double Price { get; private set; }
@@ -39,7 +39,7 @@ namespace EstateManager.Estates
         public Estate(int id, string adress, double width, double length, double price, OwnerType owner, DateTime addedDate)
         {
             ID = id;
-            Adress = adress;
+            Address = adress;
             Width = width;
             Length = length;
             Price = price;
@@ -51,7 +51,7 @@ namespace EstateManager.Estates
         public Estate(int id, string adress, double width, double length, double price, OwnerType owner)
         {
             ID = id;
-            Adress = adress;
+            Address = adress;
             Width = width;
             Length = length;
             Price = price;
@@ -63,7 +63,7 @@ namespace EstateManager.Estates
         public Estate(string adress, double width, double length, double price, OwnerType owner, DateTime addedDate)
         {
             ID = 0;
-            Adress = adress;
+            Address = adress;
             Width = width;
             Length = length;
             Price = price;
