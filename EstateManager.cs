@@ -31,13 +31,13 @@ namespace EstateManager
             if (toAdd is Parcel)
             {
                 var parcel = toAdd as Parcel;
-                toAdd = new Parcel(newID, estate.Adress, estate.Width, estate.Length, estate.Price,
+                toAdd = new Parcel(newID, estate.Address, estate.Width, estate.Length, estate.Price,
                                     estate.Owner, parcel.ParcelType, estate.AddedDate);
             }
             else if (toAdd is Office)
             {
                 var office = toAdd as Office;
-                toAdd = new Office(newID, estate.Adress, estate.Width, estate.Length, estate.Price,
+                toAdd = new Office(newID, estate.Address, estate.Width, estate.Length, estate.Price,
                                     estate.Owner, office.Floors, office.MaxPeople, estate.AddedDate);
             }
 

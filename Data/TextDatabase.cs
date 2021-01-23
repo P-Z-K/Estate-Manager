@@ -60,13 +60,13 @@ namespace EstateManager.Data
                 if (estate is Office)
                 {
                     var office = estate as Office;
-                    lines.Add($"{office.ID}|OFFICE|{office.Adress}|{office.Owner}|{office.Length}|{office.Width}|{office.Price}" +
+                    lines.Add($"{office.ID}|OFFICE|{office.Address}|{office.Owner}|{office.Length}|{office.Width}|{office.Price}" +
                         $"|{office.Floors}|{office.MaxPeople}|{office.AddedDate.ToString("dd-MM-yyyy")}");
                 }
                 else if (estate is Parcel)
                 {
                     var parcel = estate as Parcel;
-                    lines.Add($"{parcel.ID}|PARCEL|{parcel.ParcelType}|{parcel.Adress}|{parcel.Owner}|{parcel.Length}|{parcel.Width}|{parcel.Price}" +
+                    lines.Add($"{parcel.ID}|PARCEL|{parcel.ParcelType}|{parcel.Address}|{parcel.Owner}|{parcel.Length}|{parcel.Width}|{parcel.Price}" +
                         $"|{parcel.AddedDate.ToString("dd-MM-yyyy")}");
                 }
             }

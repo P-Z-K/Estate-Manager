@@ -29,7 +29,7 @@ namespace EstateManager.Utils
                 "Cena za m2:\t {6:N} zł\n" +
                 "Data dodania:\t {7}\n" +
                 "Data kontroli:\t {8}\n";
-            sb.AppendFormat(formatString, estate.ID, estate.Adress, translatedOwner, estate.Length, estate.Width, estate.Area, estate.PricePerMeter, addedDate, controlDate);
+            sb.AppendFormat(formatString, estate.ID, estate.Address, translatedOwner, estate.Length, estate.Width, estate.Area, estate.PricePerMeter, addedDate, controlDate);
             Console.Write(sb);
 
             foreach (var item in estate.AdditionalInfo())
@@ -54,7 +54,7 @@ namespace EstateManager.Utils
             {
                 string translatedOwner = TranslateOwner(estate.Owner);
 
-                sb.AppendFormat(formatString, estate.ID, estate.Adress, translatedOwner, estate.Area, estate.Price);
+                sb.AppendFormat(formatString, estate.ID, estate.Address, translatedOwner, estate.Area, estate.Price);
             }
 
             Console.WriteLine(sb);
