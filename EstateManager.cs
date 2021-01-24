@@ -44,6 +44,15 @@ namespace EstateManager
             _database.Add(toAdd);
         }
 
+        public bool Remove(int id)
+        {
+            if (!ExistsOnList(id))
+                return false;
+
+            _database.Remove(id);
+            return true;
+        }
+
         private int GetID()
         {
             var all = _database.GetEstates();
