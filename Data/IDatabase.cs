@@ -7,10 +7,10 @@ namespace EstateManager.Data
 {
     interface IDatabase
     {
-        void Add(Estate estate);
+        void Add(int id, Estate estate);
         void Remove(int id);
-        Estate GetEstate(int id);
-        IEnumerable<Estate> GetEstates();
+        KeyValuePair<int, Estate> GetEstate(int id);
+        IEnumerable<KeyValuePair<int, Estate>> GetEstates();
         bool IsEmpty();
     }
 }

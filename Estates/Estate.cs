@@ -6,7 +6,6 @@ namespace EstateManager.Estates
 {
     abstract class Estate
     {
-        public int ID { get; private set; }
         public string Address { get; private set; }
         public double Width { get; private set; }
         public double Length { get; private set; }
@@ -36,9 +35,8 @@ namespace EstateManager.Estates
 
         public abstract IEnumerable<string> AdditionalInfo();
 
-        public Estate(int id, string adress, double width, double length, double price, OwnerType owner, DateTime addedDate)
+        public Estate(string adress, double width, double length, double price, OwnerType owner, DateTime addedDate)
         {
-            ID = id;
             Address = adress;
             Width = width;
             Length = length;
@@ -48,26 +46,13 @@ namespace EstateManager.Estates
             Owner = owner;
         }
 
-        public Estate(int id, string adress, double width, double length, double price, OwnerType owner)
+        public Estate(string adress, double width, double length, double price, OwnerType owner)
         {
-            ID = id;
             Address = adress;
             Width = width;
             Length = length;
             Price = price;
             AddedDate = DateTime.Now;
-            ControlDate = AddedDate.AddYears(controlFrequency);
-            Owner = owner;
-        }
-
-        public Estate(string adress, double width, double length, double price, OwnerType owner, DateTime addedDate)
-        {
-            ID = 0;
-            Address = adress;
-            Width = width;
-            Length = length;
-            Price = price;
-            AddedDate = addedDate;
             ControlDate = AddedDate.AddYears(controlFrequency);
             Owner = owner;
         }

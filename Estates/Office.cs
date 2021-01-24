@@ -9,13 +9,6 @@ namespace EstateManager.Estates
         public int Floors { get; private set; }
         public int MaxPeople { get; private set; }
 
-        public Office(int number, string adress, double width, double length, double price, OwnerType owner, int floors, int maxPeople, DateTime addedDate)
-            : base(number, adress, width, length, price, owner, addedDate)
-        {
-            Floors = floors;
-            MaxPeople = maxPeople;
-        }
-
         public Office(string adress, double width, double length, double price, OwnerType owner, int floors, int maxPeople, DateTime addedDate)
             : base(adress, width, length, price, owner, addedDate)
         {

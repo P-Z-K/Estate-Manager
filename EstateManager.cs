@@ -17,31 +17,24 @@ namespace EstateManager
         }
 
         public void Add(Estate estate)
-        {
-            Estate toAdd = estate;
-
-            // Prevents id duplication 
-            if (ExistsOnList(estate.ID))
-            {
-                _database.Remove(estate.ID);
-            }
+        { 
 
             int newID = GetID();
 
-            if (toAdd is Parcel)
+            if (estate is Parcel)
             {
-                var parcel = toAdd as Parcel;
-                toAdd = new Parcel(newID, estate.Address, estate.Width, estate.Length, estate.Price,
+                var parcel = estate as Parcel;
+                estate = new Parcel(estate.Address, estate.Width, estate.Length, estate.Price,
                                     estate.Owner, parcel.ParcelType, estate.AddedDate);
             }
-            else if (toAdd is Office)
+            else if (estate is Office)
             {
-                var office = toAdd as Office;
-                toAdd = new Office(newID, estate.Address, estate.Width, estate.Length, estate.Price,
+                var office = estate as Office;
+                estate = new Office(estate.Address, estate.Width, estate.Length, estate.Price,
                                     estate.Owner, office.Floors, office.MaxPeople, estate.AddedDate);
             }
 
-            _database.Add(toAdd);
+            _database.Add(newID, estate);
         }
 
         public bool Remove(int id)
@@ -59,14 +52,14 @@ namespace EstateManager
 
             if (all.Any())
             {
-                return all.Max(item => item.ID) + 1;    // make estate with id greater than 1 from the current max id
+                return all.Max(item => item.Key) + 1;    // make estate with id greater than 1 from the current max id
             }
             return 1;                                   // database is empty, thus make first estate with id 1
         }
 
         private bool ExistsOnList(int id)
         {
-            return _database.GetEstates().Any(item => item.ID == id);
+            return _database.GetEstates().Any(item => item.Key == id);
         }
     }
 }

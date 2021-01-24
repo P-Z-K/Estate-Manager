@@ -10,17 +10,19 @@ namespace EstateManager.Utils
         private static StringBuilder sb;
         private static string formatString;
 
-        public static void PrintEstate(Estate estate)
+        public static void PrintEstate(KeyValuePair<int, Estate> estate)
         {
             Console.Clear();
 
             sb = new StringBuilder();
 
-            string translatedOwner = TranslateOwner(estate.Owner);
+            var e = estate.Value;
+
+            string translatedOwner = TranslateOwner(e.Owner);
 
             // We want to display date without hours etc.
-            string addedDate = estate.AddedDate.ToShortDateString();
-            string controlDate = estate.ControlDate.ToShortDateString();
+            string addedDate = e.AddedDate.ToShortDateString();
+            string controlDate = e.ControlDate.ToShortDateString();
 
             formatString = "{0} -\t\t {1}\n" +
                 "Własność:\t {2}\n" +
@@ -29,17 +31,17 @@ namespace EstateManager.Utils
                 "Cena za m2:\t {6:N} zł\n" +
                 "Data dodania:\t {7}\n" +
                 "Data kontroli:\t {8}\n";
-            sb.AppendFormat(formatString, estate.ID, estate.Address, translatedOwner, estate.Length, estate.Width, estate.Area, estate.PricePerMeter, addedDate, controlDate);
+            sb.AppendFormat(formatString, estate.Key, e.Address, translatedOwner, e.Length, e.Width, e.Area, e.PricePerMeter, addedDate, controlDate);
             Console.Write(sb);
 
-            foreach (var item in estate.AdditionalInfo())
+            foreach (var item in e.AdditionalInfo())
             {
                 Console.Write(item);
             }
             Console.ReadLine();
         }
 
-        public static void PrintEstates(IEnumerable<Estate> estates)
+        public static void PrintEstates(IEnumerable<KeyValuePair<int, Estate>> estates)
         {
             Console.Clear();
 
@@ -52,9 +54,10 @@ namespace EstateManager.Utils
 
             foreach (var estate in estates)
             {
-                string translatedOwner = TranslateOwner(estate.Owner);
+                var e = estate.Value;
+                string translatedOwner = TranslateOwner(e.Owner);
 
-                sb.AppendFormat(formatString, estate.ID, estate.Address, translatedOwner, estate.Area, estate.Price);
+                sb.AppendFormat(formatString, estate.Key, e.Address, translatedOwner, e.Area, e.Price);
             }
 
             Console.WriteLine(sb);

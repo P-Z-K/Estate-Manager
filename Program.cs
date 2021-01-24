@@ -88,7 +88,7 @@ namespace EstateManager
 
         private static void ShowEstate()
         {
-
+            EstatePrinter.PrintEstate(_database.GetEstate(1));
         }
 
         private static void ShowAllEstates()
