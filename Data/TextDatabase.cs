@@ -19,7 +19,7 @@ namespace EstateManager.Data
             if (!File.Exists(_fileName))
                 File.Create(_fileName).Dispose();
 
-            
+
 
 
             LoadData();
@@ -27,13 +27,24 @@ namespace EstateManager.Data
 
         public void Add(int key, Estate value)
         {
-            _dir.Add(key, value);
+            try
+            {
+                _dir.Add(key, value);
+            }
+            catch (ArgumentException e)
+            {
+                Console.WriteLine(e.Message);
+                Console.Write("Naciśnij dowolny przycisk aby zakończyć program...");
+                Console.ReadLine();
+                Environment.Exit(-1);
+            }
+
 
             UpdateData();
         }
 
         public KeyValuePair<int, Estate> GetEstate(int id)
-        {      
+        {
             return _dir.SingleOrDefault(item => item.Key == id);
         }
 
@@ -82,12 +93,12 @@ namespace EstateManager.Data
 
             var lines = File.ReadAllLines(_fileName);
 
-            
+
             foreach (var line in lines)
             {
                 var splitted = line.Split('|');
 
-                int id = int.Parse( splitted[0]);
+                int id = int.Parse(splitted[0]);
 
                 if (splitted[1] == "OFFICE")
                 {
@@ -98,7 +109,7 @@ namespace EstateManager.Data
                     Add(id, LoadParcel(splitted));
                 }
             }
-            
+
         }
 
         private Office LoadOffice(string[] line)

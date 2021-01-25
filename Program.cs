@@ -10,12 +10,13 @@ namespace EstateManager
 {
     class Program
     {
-        private static IDatabase _database;
+        private static EstateManager manager;
         private const string _databaseFileName = "estates.txt";
 
         static void Main()
         {
-            _database = new TextDatabase(_databaseFileName);
+            IDatabase database = new TextDatabase(_databaseFileName);
+            manager = new EstateManager(database);
 
             bool isRunning = true;
             do
@@ -71,19 +72,96 @@ namespace EstateManager
 
         private static void AddEstate()
         {
-            EstateManager estateManager = new EstateManager(_database);
+            Console.WriteLine("Jaki rodzaj nieruchomości wybierasz");
+            Console.WriteLine("1. Biuro");
+            Console.WriteLine("2. Działka");
 
-            estateManager.Add(new Office("Słoneczna 4", 100, 150, 450000, OwnerType.City, 15, 150, DateTime.Now));
-            estateManager.Add(new Office("Słoneczna 4", 100, 150, 450000, OwnerType.City, 15, 150, DateTime.Now));
-            estateManager.Add(new Office("Słoneczna 4", 100, 150, 450000, OwnerType.City, 15, 150, DateTime.Now));
-            estateManager.Add(new Office("Słoneczna 4", 100, 150, 450000, OwnerType.City, 15, 150, DateTime.Now));
-            estateManager.Add(new Office("Słoneczna 4", 100, 150, 450000, OwnerType.City, 15, 150, DateTime.Now));
+            int userInput = Validator.AskInteger("Wybieram: ");
 
+            Estate estate;
+
+            switch (userInput)
+            {
+                default:
+                    estate = null;
+                    break;
+                case 1:
+                    estate = GetOffice();
+                    break;
+                case 2:
+                    estate = GetParcel();
+                    break;
+            }
+
+            if (estate != null)
+            {
+                manager.Add(estate);
+                Console.WriteLine("Pomyślnie dodano nieruchomość!");
+                Console.ReadLine();
+            }
+            else
+            {
+                Console.WriteLine("Wprowadzona odpowiedź jest niepoprawna, nastąpi powrót do głównego menu");
+                Console.ReadLine();
+            }
+
+        }
+
+        private static Parcel GetParcel()
+        {
+            GetEstateBasicInfo(out string address, out decimal width, out decimal length, out decimal price, out OwnerType owner);
+
+            ParcelType parcelType = Validator.AskParcelType("Rodzaj działki (R - Rolna; B - Budowlana): ");
+
+            return new Parcel(address, width, length, price, owner, parcelType, DateTime.Now);
+        }
+
+        private static Office GetOffice()
+        {
+            GetEstateBasicInfo(out string address, out decimal width, out decimal length, out decimal price, out OwnerType owner);
+
+            int floors = Validator.AskInteger("Ilość pięter: ");
+            int maxPeople = Validator.AskInteger("Maksymalna ilość osób: ");
+
+            return new Office(address, width, length, price, owner, floors, maxPeople, DateTime.Now);
+        }
+
+
+        private static void GetEstateBasicInfo(out string address, out decimal width, out decimal length, out decimal price, out OwnerType owner)
+        {
+            Console.Clear();
+
+            address = Validator.AskAddress("Adres: ");
+
+            Console.WriteLine("Wymiary nieruchomości");
+            width = Validator.AskDecimal("Szerokość: ");
+            length = Validator.AskDecimal("Długość: ");
+            price = Validator.AskDecimal("Cena: ");
+            owner = Validator.AskOwner("Własność (P - Prywatna; M - Miejska, O - Inna): ");
         }
 
         private static void RemoveEstate()
         {
+            if (!IsEstateInDatabase(out int id))
+            {
+                Console.WriteLine("Brak nieruchomości o podanym numerze!");
+                Console.ReadLine();
+            }
+            else
+            {
 
+                if (!manager.Remove(id))
+                {
+                    Console.WriteLine("Usunięcie nieruchomości zakończone niepowodzeniem!");
+                    Console.ReadLine();
+                }
+                else
+                {
+                    Console.WriteLine("Usunięcie nieruchomości zakończone powodzeniem!");
+                    Console.ReadLine();
+                }
+
+            }
         }
 
         private static void ShowEstate()
@@ -95,20 +173,20 @@ namespace EstateManager
             }
             else
             {
-                EstatePrinter.PrintEstate(_database.GetEstate(id));
+                EstatePrinter.PrintEstate(manager.GetEstate(id));
             }
         }
 
         private static void ShowAllEstates()
         {
-            if (_database.IsEmpty())
+            if (manager.IsDatabaseEmpty())
             {
                 Console.WriteLine("Brak jakiejkolwiek nieruchomości!");
                 Console.ReadLine();
             }
             else
             {
-                var estates = _database.GetEstates();
+                var estates = manager.GetEstates();
                 EstatePrinter.PrintEstates(estates);
             }
         }
@@ -117,9 +195,7 @@ namespace EstateManager
         {
             userInput = Validator.AskInteger("Podaj numer nieruchomości: ");
 
-            var estate = _database.GetEstate(userInput);
-
-            return estate.Value != null;
+            return manager.IsInDatabase(userInput);
         }
     }
 }

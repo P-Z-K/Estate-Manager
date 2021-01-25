@@ -16,9 +16,18 @@ namespace EstateManager
             _database = database;
         }
 
-        public void Add(Estate estate)
-        { 
+        public KeyValuePair<int, Estate> GetEstate(int id)
+        {
+            return _database.GetEstate(id);
+        }
 
+        public IEnumerable<KeyValuePair<int, Estate>> GetEstates()
+        {
+            return _database.GetEstates();
+        }
+
+        public void Add(Estate estate)
+        {
             int newID = GetID();
 
             if (estate is Parcel)
@@ -39,7 +48,7 @@ namespace EstateManager
 
         public bool Remove(int id)
         {
-            if (!ExistsOnList(id))
+            if (!IsInDatabase(id))
                 return false;
 
             _database.Remove(id);
@@ -57,9 +66,14 @@ namespace EstateManager
             return 1;                                   // database is empty, thus make first estate with id 1
         }
 
-        private bool ExistsOnList(int id)
+        public bool IsInDatabase(int id)
         {
             return _database.GetEstates().Any(item => item.Key == id);
+        }
+
+        public bool IsDatabaseEmpty()
+        {
+            return _database.IsEmpty();
         }
     }
 }

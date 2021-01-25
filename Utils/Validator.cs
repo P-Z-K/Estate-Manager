@@ -8,9 +8,9 @@ namespace EstateManager.Utils
 {
     class Validator
     {
-        public static double AskDouble(string inputQuery)
+        public static decimal AskDecimal(string inputQuery)
         {
-            double userInput;
+            decimal userInput;
             bool isValidated = false;
 
             do
@@ -18,7 +18,7 @@ namespace EstateManager.Utils
                 Console.Write(inputQuery);
 
 
-                if (double.TryParse(Console.ReadLine(), out userInput))
+                if (decimal.TryParse(Console.ReadLine(), out userInput))
                 {
                     if (userInput < 0)
                     {
