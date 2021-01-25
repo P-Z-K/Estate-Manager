@@ -16,7 +16,7 @@ namespace EstateManager
         static void Main()
         {
             _database = new TextDatabase(_databaseFileName);
-            //EstatePrinter.PrintEstate(new Office(1, "Słoneczna 4", 100, 150, 450000, OwnerType.City, 15, 150, DateTime.Now));
+
             bool isRunning = true;
             do
             {

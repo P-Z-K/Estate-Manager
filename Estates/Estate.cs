@@ -7,9 +7,9 @@ namespace EstateManager.Estates
     abstract class Estate
     {
         public string Address { get; private set; }
-        public double Width { get; private set; }
-        public double Length { get; private set; }
-        public double Price { get; private set; }
+        public decimal Width { get; private set; }
+        public decimal Length { get; private set; }
+        public decimal Price { get; private set; }
         public OwnerType Owner { get; private set; }
         public DateTime AddedDate { get; private set; }
         public DateTime ControlDate { get; private set; }
@@ -17,7 +17,7 @@ namespace EstateManager.Estates
         // Every how many years the estate must pass inspection
         private const int controlFrequency = 3;
 
-        public double Area
+        public decimal Area
         {
             get
             {
@@ -25,7 +25,7 @@ namespace EstateManager.Estates
             }
         }
 
-        public double PricePerMeter
+        public decimal PricePerMeter
         {
             get
             {
@@ -35,7 +35,7 @@ namespace EstateManager.Estates
 
         public abstract IEnumerable<string> AdditionalInfo();
 
-        public Estate(string adress, double width, double length, double price, OwnerType owner, DateTime addedDate)
+        public Estate(string adress, decimal width, decimal length, decimal price, OwnerType owner, DateTime addedDate)
         {
             Address = adress;
             Width = width;
@@ -46,7 +46,7 @@ namespace EstateManager.Estates
             Owner = owner;
         }
 
-        public Estate(string adress, double width, double length, double price, OwnerType owner)
+        public Estate(string adress, decimal width, decimal length, decimal price, OwnerType owner)
         {
             Address = adress;
             Width = width;

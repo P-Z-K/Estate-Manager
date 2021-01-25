@@ -29,11 +29,6 @@ namespace EstateManager.Data
         {
             _dir.Add(key, value);
 
-            foreach (KeyValuePair<int,Estate> item in _dir)
-            {
-                Console.WriteLine("Key: {0}, Value: {1}", item.Key, item.Value.Price);
-            }
-
             UpdateData();
         }
 
@@ -110,9 +105,9 @@ namespace EstateManager.Data
         {
             var address = line[2];
             var owner = Enum.Parse<OwnerType>(line[3]);
-            var length = double.Parse(line[4]);
-            var width = double.Parse(line[5]);
-            var price = double.Parse(line[6]);
+            var length = decimal.Parse(line[4]);
+            var width = decimal.Parse(line[5]);
+            var price = decimal.Parse(line[6]);
             var floors = int.Parse(line[7]);
             var maxPeople = int.Parse(line[8]);
             var addedDate = DateTime.ParseExact(line[9], "dd-MM-yyyy", null);
@@ -125,9 +120,9 @@ namespace EstateManager.Data
             var parcelType = Enum.Parse<ParcelType>(line[2]);
             var address = line[3];
             var owner = Enum.Parse<OwnerType>(line[4]);
-            var length = double.Parse(line[5]);
-            var width = double.Parse(line[6]);
-            var price = double.Parse(line[7]);
+            var length = decimal.Parse(line[5]);
+            var width = decimal.Parse(line[6]);
+            var price = decimal.Parse(line[7]);
             var addedDate = DateTime.ParseExact(line[8], "dd-MM-yyyy", null);
 
             return new Parcel(address, width, length, price, owner, parcelType, addedDate);
