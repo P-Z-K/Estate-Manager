@@ -88,12 +88,38 @@ namespace EstateManager
 
         private static void ShowEstate()
         {
-            EstatePrinter.PrintEstate(_database.GetEstate(1));
+            if (!IsEstateInDatabase(out int id))
+            {
+                Console.WriteLine("Brak nieruchomości o podanym numerze!");
+                Console.ReadLine();
+            }
+            else
+            {
+                EstatePrinter.PrintEstate(_database.GetEstate(id));
+            }
         }
 
         private static void ShowAllEstates()
         {
-            EstatePrinter.PrintEstates(_database.GetEstates());
+            if (_database.IsEmpty())
+            {
+                Console.WriteLine("Brak jakiejkolwiek nieruchomości!");
+                Console.ReadLine();
+            }
+            else
+            {
+                var estates = _database.GetEstates();
+                EstatePrinter.PrintEstates(estates);
+            }
+        }
+
+        private static bool IsEstateInDatabase(out int userInput)
+        {
+            userInput = Validator.AskInteger("Podaj numer nieruchomości: ");
+
+            var estate = _database.GetEstate(userInput);
+
+            return estate.Value != null;
         }
     }
 }
