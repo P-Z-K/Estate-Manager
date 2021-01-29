@@ -10,13 +10,12 @@ namespace EstateManager
 {
     class Program
     {
-        private static EstateManager manager;
+        private static IDatabase _database;
         private const string _databaseFileName = "estates.txt";
 
         static void Main()
         {
-            IDatabase database = new TextDatabase(_databaseFileName);
-            manager = new EstateManager(database);
+            _database = new TextDatabase(_databaseFileName);
 
             bool isRunning = true;
             do
@@ -95,6 +94,8 @@ namespace EstateManager
 
             if (estate != null)
             {
+                EstateManager manager = new EstateManager(_database);
+
                 manager.Add(estate);
                 Console.WriteLine("Pomyślnie dodano nieruchomość!");
                 Console.ReadLine();
@@ -149,18 +150,9 @@ namespace EstateManager
             }
             else
             {
-
-                if (!manager.Remove(id))
-                {
-                    Console.WriteLine("Usunięcie nieruchomości zakończone niepowodzeniem!");
-                    Console.ReadLine();
-                }
-                else
-                {
-                    Console.WriteLine("Usunięcie nieruchomości zakończone powodzeniem!");
-                    Console.ReadLine();
-                }
-
+                _database.Remove(id);
+                Console.WriteLine("Usunięcie nieruchomości zakończone powodzeniem!");
+                Console.ReadLine();
             }
         }
 
@@ -173,27 +165,28 @@ namespace EstateManager
             }
             else
             {
-                EstatePrinter.PrintEstate(manager.GetEstate(id));
+                EstatePrinter.PrintEstate(_database.GetEstate(id));
             }
         }
 
         private static void ShowAllEstates()
         {
-            if (manager.IsDatabaseEmpty())
+            if (_database.IsEmpty())
             {
                 Console.WriteLine("Brak jakiejkolwiek nieruchomości!");
                 Console.ReadLine();
             }
             else
             {
-                var estates = manager.GetEstates();
-                EstatePrinter.PrintEstates(estates);
+                EstatePrinter.PrintEstates(_database.GetEstates());
             }
         }
 
         private static bool IsEstateInDatabase(out int userInput)
         {
             userInput = Validator.AskInteger("Podaj numer nieruchomości: ");
+
+            EstateManager manager = new EstateManager(_database); 
 
             return manager.IsInDatabase(userInput);
         }

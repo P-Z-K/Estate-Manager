@@ -9,7 +9,6 @@ namespace EstateManager.Data
     class TextDatabase : IDatabase
     {
         private readonly string _fileName;
-
         private SortedDictionary<int, Estate> _dir;
 
         public TextDatabase(string fileName)
@@ -18,8 +17,6 @@ namespace EstateManager.Data
 
             if (!File.Exists(_fileName))
                 File.Create(_fileName).Dispose();
-
-
 
 
             LoadData();

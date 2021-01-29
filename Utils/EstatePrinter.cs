@@ -7,14 +7,14 @@ namespace EstateManager.Utils
 {
     class EstatePrinter
     {
-        private static StringBuilder sb;
-        private static string formatString;
+        private static StringBuilder _sb;
+        private static string _formatString;
 
         public static void PrintEstate(KeyValuePair<int, Estate> estate)
         {
             Console.Clear();
 
-            sb = new StringBuilder();
+            _sb = new StringBuilder();
 
             var e = estate.Value;
 
@@ -24,15 +24,15 @@ namespace EstateManager.Utils
             string addedDate = e.AddedDate.ToShortDateString();
             string controlDate = e.ControlDate.ToShortDateString();
 
-            formatString = "{0} -\t\t {1}\n" +
+            _formatString = "{0} -\t\t {1}\n" +
                 "Własność:\t {2}\n" +
                 "Wymiary:\t {3:N} m x {4:N} m\n" +
                 "Powierzchnia:\t {5:N} m2\n" +
                 "Cena za m2:\t {6:N} zł\n" +
                 "Data dodania:\t {7}\n" +
                 "Data kontroli:\t {8}\n";
-            sb.AppendFormat(formatString, estate.Key, e.Address, translatedOwner, e.Length, e.Width, e.Area, e.PricePerMeter, addedDate, controlDate);
-            Console.Write(sb);
+            _sb.AppendFormat(_formatString, estate.Key, e.Address, translatedOwner, e.Length, e.Width, e.Area, e.PricePerMeter, addedDate, controlDate);
+            Console.Write(_sb);
 
             foreach (var item in e.AdditionalInfo())
             {
@@ -45,9 +45,9 @@ namespace EstateManager.Utils
         {
             Console.Clear();
 
-            sb = new StringBuilder();
+            _sb = new StringBuilder();
 
-            formatString = "{0} -\t\t {1} ({2})\n" +
+            _formatString = "{0} -\t\t {1} ({2})\n" +
                 "Powierzchnia:\t {3:N} m2\n" +
                 "Cena:\t\t {4:N} zł\n" +
                 "=======================\n";
@@ -57,10 +57,10 @@ namespace EstateManager.Utils
                 var e = estate.Value;
                 string translatedOwner = TranslateOwner(e.Owner);
 
-                sb.AppendFormat(formatString, estate.Key, e.Address, translatedOwner, e.Area, e.Price);
+                _sb.AppendFormat(_formatString, estate.Key, e.Address, translatedOwner, e.Area, e.Price);
             }
 
-            Console.WriteLine(sb);
+            Console.WriteLine(_sb);
             Console.ReadLine();
         }
 

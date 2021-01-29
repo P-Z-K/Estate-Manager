@@ -16,16 +16,6 @@ namespace EstateManager
             _database = database;
         }
 
-        public KeyValuePair<int, Estate> GetEstate(int id)
-        {
-            return _database.GetEstate(id);
-        }
-
-        public IEnumerable<KeyValuePair<int, Estate>> GetEstates()
-        {
-            return _database.GetEstates();
-        }
-
         public void Add(Estate estate)
         {
             int newID = GetID();
@@ -46,13 +36,9 @@ namespace EstateManager
             _database.Add(newID, estate);
         }
 
-        public bool Remove(int id)
+        public bool IsInDatabase(int id)
         {
-            if (!IsInDatabase(id))
-                return false;
-
-            _database.Remove(id);
-            return true;
+            return _database.GetEstates().Any(item => item.Key == id);
         }
 
         private int GetID()
@@ -64,16 +50,6 @@ namespace EstateManager
                 return all.Max(item => item.Key) + 1;    // make estate with id greater than 1 from the current max id
             }
             return 1;                                   // database is empty, thus make first estate with id 1
-        }
-
-        public bool IsInDatabase(int id)
-        {
-            return _database.GetEstates().Any(item => item.Key == id);
-        }
-
-        public bool IsDatabaseEmpty()
-        {
-            return _database.IsEmpty();
         }
     }
 }

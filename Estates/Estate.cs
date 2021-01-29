@@ -46,17 +46,6 @@ namespace EstateManager.Estates
             Owner = owner;
         }
 
-        public Estate(string adress, decimal width, decimal length, decimal price, OwnerType owner)
-        {
-            Address = adress;
-            Width = width;
-            Length = length;
-            Price = price;
-            AddedDate = DateTime.Now;
-            ControlDate = AddedDate.AddYears(controlFrequency);
-            Owner = owner;
-        }
-
         protected bool IsControlDeadlinePassed()
         {
             int result = DateTime.Compare(AddedDate, ControlDate);
